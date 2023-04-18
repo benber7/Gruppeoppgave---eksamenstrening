@@ -1,0 +1,40 @@
+.registrerForm {
+    position: absolute;
+    width: 809px;
+    height: 853px;
+    left: 315px;
+    top: 54px;
+    
+    background: #2F6690;
+}
+
+/*
+position: absolute;
+width: 76.45px;
+height: 1439.5px;
+left: 1439.5px;
+top: 947.96px;
+background: #3A7CA5;
+transform: rotate(89.99deg);
+
+
+position: absolute;
+width: 295px;
+height: 299px;
+left: 569px;
+top: 68px;
+background: url(image.png);
+
+
+position: absolute;
+width: 208px;
+height: 53px;
+left: 612px;
+top: 367px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 40px;
+line-height: 48px;
+color: #FFFFFF;
+*/

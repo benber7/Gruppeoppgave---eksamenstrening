@@ -13,14 +13,20 @@
     </div>
 
     <div class="registrerForm">
-        <form action="/addUser" method="post">
+        <form action="/addDevices" method="post">
             <label for="username">Brukernavn: </label><input type="text" name="username" id=""><br>
             <label for="password">Passord: </label><input type="password" name="password" id=""><br>
             <label for="email">Epost: </label><input type="text" name="email"><br>
-            <label for="klasser">Roller: </label><br>
-            <input type="radio" name="role" value="Administrator">Administartor<br>
-            <input type="radio" name="role" value="Lærer">Lærer<br>
-            <input type="radio" name="role" value="Elev">Elev<br>
+            <label for="role">Rolle: </label><input type="text" name="role" id=""><br>
+            <button>Registrer ny bruker</button>
+        </form>
+    </div>
+    <div class="registrerForm">
+        <form action="/addAccessories" method="post">
+            <label for="username">Brukernavn: </label><input type="text" name="username" id=""><br>
+            <label for="password">Passord: </label><input type="password" name="password" id=""><br>
+            <label for="email">Epost: </label><input type="text" name="email"><br>
+            <label for="role">Rolle: </label><input type="text" name="role" id=""><br>
             <button>Registrer ny bruker</button>
         </form>
     </div>

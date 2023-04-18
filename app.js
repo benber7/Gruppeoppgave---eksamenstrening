@@ -60,8 +60,8 @@ app.post(("/addUser"), async (req, res) => {
     let svar = req.body;
     // omgjør passordet du skrev inn til hash
     let password = await bcrypt.hash(svar.password, 10)
-    console.log(svar)
-    console.log(password)
+    //console.log(svar)
+    //console.log(password)
     // sender alt til database og der etter sender deg tilbake
     db.prepare("INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)").run(svar.username, password, svar.email, svar.role)
     res.redirect("back")    
