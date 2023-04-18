@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
-//const dbDyr = require("better-sqlite3")("data.db"); //{verbose: console.log}
+const db = require("better-sqlite3")("data.db"); //{verbose: console.log}
 const hbs = require("hbs");
 const path = require("path");
 
@@ -36,10 +36,10 @@ app.get("/Public/login", (req, res) => {
 app.post("/login", async (req, res) => {
     let login = req.body;
     // Henter ut data fra brukere.db, user
-    let userData = dbFolk.prepare("SELECT * FROM user WHERE email = ?").get(login.email);
+    let userData = db.prepare("SELECT * FROM users WHERE email = ?").get(login.email);
     
     // Her bruker jeg await for å gi bcrypt.compare nok til til å sammen ligne passordet du skrev inn med hashen som ligger i databasen
-    if(await bcrypt.compare(login.password, userData.hash)) {
+    if(await bcrypt.compare(login.password, userData.password)) {
         // hvis passordet du skrev in er lik hashen blir du redirected til index.html og hvis de er ikke lik blir du redirected tilbake
         req.session.loggedin = true
         res.redirect("/")
@@ -59,11 +59,11 @@ app.post(("/addUser"), async (req, res) => {
     // henter ut hva du har skrevet
     let svar = req.body;
     // omgjør passordet du skrev inn til hash
-    let hash = await bcrypt.hash(svar.password, 10)
-    //console.log(svar)
-    //console.log(hash)
+    let password = await bcrypt.hash(svar.password, 10)
+    console.log(svar)
+    console.log(password)
     // sender alt til database og der etter sender deg tilbake
-    dbFolk.prepare("INSERT INTO user (name, email, hash) VALUES (?, ?, ?)").run(svar.name, svar.email, hash)
+    db.prepare("INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)").run(svar.username, password, svar.email, svar.role)
     res.redirect("back")    
 })
 
