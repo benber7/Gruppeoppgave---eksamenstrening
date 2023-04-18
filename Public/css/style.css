@@ -1,14 +1,127 @@
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#gridContainer {
+    display: grid;
+    grid-template-areas:
+    "logo header header header"
+    "sidebar maincontent maincontent maincontent"
+    "sidebar maincontent maincontent maincontent"
+    "sidebar maincontent maincontent maincontent";  
+    grid-gap: 0px;  
+    height: 100vh;
+    width: 100vw;
+    
+}
+#gridContainer img {
+    width: 250px;
+    height: 250px;
+    padding: -0px;
+    margin: -0px;
+}
+
+#logo {
+    background-color: #2F6690;
+    grid-area: logo;
+    height: 250px;
+}
+
+#header {
+    background-color: #2F6690;
+    grid-area: header;
+}
+
+#sidebar {
+    background-color: #3A7CA5;
+    grid-area: sidebar;
+    width: 250px;
+    height: 690px;
+}
+
+#maincontent {
+    background-color: #D9DCD6;
+    grid-area: maincontent;
+    width: 2000px;
+}
+
 .registrerForm {
-    position: absolute;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    font-family: sans-serif;
+}
+.registrerForm img {
+    width: 350px;
+    height: 350px;
+}
+  
+.registrerForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.registrerForm label {
+    font-size: 18px;
+    margin-right: 10px;
+}
+  
+.registrerForm input[type="text"],
+.registrerForm input[type="password"] {
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.registrerForm input[type="text"]:focus,
+.registrerForm input[type="password"]:focus {
+    border-bottom: 2px solid #2F6690;
+}
+  
+.registrerForm button {
+    padding: 10px;
+    background-color: #2F6690;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+  
+.registrerForm button:hover {
+    background-color: #3A7CA5;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+/*
+position: absolute;
+width: 295px;
+height: 299px;
+left: 569px;
+top: 68px;
+background-color: #2F6690;
+
+position: absolute;
     width: 809px;
     height: 853px;
     left: 315px;
     top: 54px;
-    
     background: #2F6690;
-}
 
-/*
 position: absolute;
 width: 76.45px;
 height: 1439.5px;
@@ -16,15 +129,6 @@ left: 1439.5px;
 top: 947.96px;
 background: #3A7CA5;
 transform: rotate(89.99deg);
-
-
-position: absolute;
-width: 295px;
-height: 299px;
-left: 569px;
-top: 68px;
-background: url(image.png);
-
 
 position: absolute;
 width: 208px;
@@ -36,5 +140,5 @@ font-style: normal;
 font-weight: 400;
 font-size: 40px;
 line-height: 48px;
-color: #FFFF;
+color: #FFFFFF;
 */

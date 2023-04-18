@@ -32,6 +32,12 @@ app.get("/Public/login", (req, res) => {
     res.sendFile(path.join(__dirname, "/Public/login.html"))
 })
 
+app.get("/Public/registerting.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "/Public/registrerting.html"))
+})
+
+
+
 // Koden som kjører når du trykker på login 
 app.post("/login", async (req, res) => {
     let login = req.body;
@@ -67,6 +73,11 @@ app.post(("/addUser"), async (req, res) => {
     res.redirect("back")    
 })
 
+/*
+app.post(("/addDevices"), async (req,res) => {
+    db.prepare("INSERT INTO devices (device_name, device_type, device_status, description)")
+})
+*/
 app.listen("3000", () => {
     console.log("Server listening at http://localhost:3000")
 })
