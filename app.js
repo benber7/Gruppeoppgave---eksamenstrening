@@ -73,11 +73,13 @@ app.post(("/addUser"), async (req, res) => {
     res.redirect("back")    
 })
 
-/*
+
 app.post(("/addDevices"), async (req,res) => {
-    db.prepare("INSERT INTO devices (device_name, device_type, device_status, description)")
+    let svar = req.body;
+    db.prepare("INSERT INTO devices (device_name, device_type, device_status, description) VALUES (?, ?, ?, ?)").run(svar.device_name, svar.device_type, svar.device_status, svar.description)
+    res.redirect("back")
 })
-*/
+
 app.listen("3000", () => {
     console.log("Server listening at http://localhost:3000")
 })

@@ -8,45 +8,48 @@ body {
 
 #gridContainer {
     display: grid;
+    /*
     grid-template-areas:
-    "logo header header header"
-    "sidebar maincontent maincontent maincontent"
-    "sidebar maincontent maincontent maincontent"
-    "sidebar maincontent maincontent maincontent";  
+    "logo header header header header header header"
+    "sidebar maincontent maincontent maincontent maincontent maincontent maincontent"
+    "sidebar maincontent maincontent maincontent maincontent maincontent maincontent"
+    "sidebar maincontent maincontent maincontent maincontent maincontent maincontent";
+    */  
+    grid-template-columns: 10vw 90vw;
+    grid-template-rows: 20vh 80vh;
     grid-gap: 0px;  
     height: 100vh;
     width: 100vw;
-    
 }
 #gridContainer img {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     padding: -0px;
     margin: -0px;
 }
 
 #logo {
     background-color: #2F6690;
-    grid-area: logo;
-    height: 250px;
+    grid-column: 1;
+    grid-row: 1;
 }
 
 #header {
     background-color: #2F6690;
-    grid-area: header;
+    grid-column: 2;
+    grid-row: 1;
 }
 
 #sidebar {
     background-color: #3A7CA5;
-    grid-area: sidebar;
-    width: 250px;
-    height: 690px;
+    grid-column: 1;
+    grid-row: 2;
 }
 
 #maincontent {
     background-color: #D9DCD6;
-    grid-area: maincontent;
-    width: 2000px;
+    grid-column: 2;
+    grid-row: 2;
 }
 
 .registrerForm {
