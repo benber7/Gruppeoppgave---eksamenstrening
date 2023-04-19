@@ -1,6 +1,6 @@
 body {
-    background-color: #000;
-    color: #fff;
+    background-color: #D9DCD6;
+    color: black;
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
@@ -20,24 +20,34 @@ body {
     grid-gap: 0px;  
     height: 100vh;
     width: 100vw;
-}
-#gridContainer img {
-    width: 200px;
-    height: 200px;
+  }
+  
+  #gridContainer img {
+    width: 180px;
+    height: 180px;
     padding: -0px;
     margin: -0px;
-}
-
-#logo {
+  }
+  
+  #logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #2F6690;
     grid-column: 1;
     grid-row: 1;
-}
+  }
 
 #header {
     background-color: #2F6690;
+    display: flex;
     grid-column: 2;
     grid-row: 1;
+    justify-content: left;
+    align-items: center;
+    height: 100%;
+    font-size: 100px;
+    color: white;
 }
 
 #sidebar {
