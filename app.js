@@ -25,17 +25,28 @@ app.get("/", (req, res) => {
 })
 
 //Disse to er veier til registrer og login siden, de er koblet til hver sin knapp i navbaren på de fleste sidene
-app.get("/Public/registrer", (req, res) => {
+app.get("/registrer", (req, res) => {
     res.sendFile(path.join(__dirname, "/Public/registrer.html"))
 })
-app.get("/Public/login", (req, res) => {
+app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, "/Public/login.html"))
 })
 
-app.get("/Public/registerting.html", (req, res) => {
+app.get("/registerting", (req, res) => {
     res.sendFile(path.join(__dirname, "/Public/registrerting.html"))
 })
 
+app.get("/bestilling", (req, res) => {
+    res.sendFile(path.join(__dirname, "/Public/bestillingsside.html"))
+})
+
+app.get("/admin", (req, res) => {
+    if (req.session.user_id === "Administrator") {
+        res.sendFile(path.join(__dirname, "/Public/admin.html"))
+    } else {
+        res.sendFile(path.join(__dirname, "/index.html"))
+    }
+  });
 
 
 // Koden som kjører når du trykker på login 
@@ -77,6 +88,12 @@ app.post(("/addUser"), async (req, res) => {
 app.post(("/addDevices"), async (req,res) => {
     let svar = req.body;
     db.prepare("INSERT INTO devices (device_name, device_type, device_status, description) VALUES (?, ?, ?, ?)").run(svar.device_name, svar.device_type, svar.device_status, svar.description)
+    res.redirect("back")
+})
+
+app.post(("/addAccessories"), async (req,res) => {
+    let svar = req.body;
+    db.prepare("INSERT INTO device_accessories (accessory_name, accessory_description, device_id) VALUES (?, ?, ?)").run(svar.accessory_name, svar.accessory_description, svar.device_id)
     res.redirect("back")
 })
 

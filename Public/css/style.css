@@ -60,6 +60,22 @@ body {
     background-color: #D9DCD6;
     grid-column: 2;
     grid-row: 2;
+    text-align: center;
+    justify-content: center;
+}
+
+#sidecontent{
+    margin: 30px; 
+    padding: 20px;
+    max-width: 500px;
+    border-radius: 5px;
+    background-color: aqua;
+    text-align: center;
+    justify-content: center;
+}
+#sidecontent a{
+    font-size: 30px;
+    text-decoration: none;
 }
 
 .registrerForm {

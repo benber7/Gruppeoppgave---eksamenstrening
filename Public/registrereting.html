@@ -8,26 +8,34 @@
     <title>Registrer ting</title>
 </head>
 <body>
-    <div class="header">
-        <h1>Registrer ting</h1>
-    </div>
-
     <div class="registrerForm">
         <form action="/addDevices" method="post">
-            <label for="device_name">Enhetsnavn: </label><input type="text" name="device_name" id=""><br>
+            <label for="device_name">Enhetsnavn: </label><br>
+            <input type="radio" name="device_name" value="Raspberry Pi">Raspberry Pi<br>
+            <input type="radio" name="device_name" value="Microbits">Microbits<br>
+            <input type="radio" name="device_name" value="Arduioner">Arduioner<br>
+
             <label for="device_type">Enhetstype: </label><input type="text" name="device_type" id=""><br>
-            <label for="device_status">Enhetsstatus: </label><input type="text" name="device_status"><br>
+
+            <label for="device_status">Enhets status: </label><br>
+            <input type="radio" name="device_status" value="Ledig">Ledig<br>
+            <input type="radio" name="device_status" value="Lånnet ut">Lånnet ut<br>
+
             <label for="description">Enhetsbeskrivelse </label><input type="text" name="description" id=""><br>
             <button>Registrer ny enhet</button>
         </form>
     </div>
     <div class="registrerForm">
         <form action="/addAccessories" method="post">
-            <label for="username">Brukernavn: </label><input type="text" name="username" id=""><br>
-            <label for="password">Passord: </label><input type="password" name="password" id=""><br>
-            <label for="email">Epost: </label><input type="text" name="email"><br>
-            <label for="role">Rolle: </label><input type="text" name="role" id=""><br>
-            <button>Registrer ny bruker</button>
+            <label for="accessory_name">Tilbehørnavn: </label><input type="text" name="accessory_name" id=""><br>
+
+            <label for="accessory_description">Tilbehørbeskrivelse: </label><input type="text" name="accessory_description" id=""><br>
+
+            <label for="device_id">Til enhet: </label><br>
+            <input type="radio" name="device_id" value="1">Raspberry Pi<br>
+            <input type="radio" name="device_id" value="2">Microbits<br>
+            <input type="radio" name="device_id" value="3">Arduioner<br>
+            <button>Registrer ny tilbehør</button>
         </form>
     </div>
 
