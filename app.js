@@ -41,15 +41,13 @@ app.get("/bestilling", (req, res) => {
 })
 
 app.get("/admin", (req, res) => {
-    if (req.session.user_id === "Administrator") {
-        res.sendFile(path.join(__dirname, "/Public/admin.html"))
-    } else {
-        res.sendFile(path.join(__dirname, "/index.html"))
-    }
-  });
+  if (req.session.loggedin) {
+      res.sendFile(path.join(__dirname, "/Public/admin.html"));
+  } else {
+      res.redirect("/");
+  }
+});
 
-
-// Koden som kjører når du trykker på login 
 app.post("/login", async (req, res) => {
     let login = req.body;
     // Henter ut data fra brukere.db, user
@@ -58,12 +56,13 @@ app.post("/login", async (req, res) => {
     // Her bruker jeg await for å gi bcrypt.compare nok til til å sammen ligne passordet du skrev inn med hashen som ligger i databasen
     if(await bcrypt.compare(login.password, userData.password)) {
         // hvis passordet du skrev in er lik hashen blir du redirected til index.html og hvis de er ikke lik blir du redirected tilbake
-        req.session.loggedin = true
-        res.redirect("/")
+        req.session.loggedin = true;
+        res.redirect("/");
+        console.log(req.session.loggedin);
     } else {
-        res.redirect("back")
+        res.redirect("back");
     }
-})
+});
 
 // Når du tyrkker på logg ut kjører den her. Den gjør om din cookie session fra true til false og redirecter deg til index.html
 app.get("/logut", (req, res) => {
@@ -96,6 +95,30 @@ app.post(("/addAccessories"), async (req,res) => {
     db.prepare("INSERT INTO device_accessories (accessory_name, accessory_description, device_id) VALUES (?, ?, ?)").run(svar.accessory_name, svar.accessory_description, svar.device_id)
     res.redirect("back")
 })
+
+app.post(("/reseverUtstyr"), async (req,res) => {
+    let svar = req.body;
+    reserverUtstyr(svar.user_id, svar.device_id)
+    res.redirect("back")
+})
+
+function reserverUtstyr(user_id, accessory_id) {
+  const bruker = db.prepare('SELECT * FROM users WHERE user_id = ?').get(user_id);
+  const utstyr = db.prepare('SELECT * FROM devices WHERE device_id = ?').get(device_id);
+
+  if (!bruker || !utstyr) {
+    return false;
+  }
+
+  // Sjekk om utstyret er tilgjengelig
+  if (utstyr.antall < 1) {
+    return false;
+  }
+
+db.transaction(() => {
+  db.prepare('UPDATE devices SET antall = antall - 1 WHERE device_id = ?').run();
+});
+}
 
 app.listen("3000", () => {
     console.log("Server listening at http://localhost:3000")
