@@ -37,7 +37,7 @@ app.get("/registerting", (req, res) => {
 })
 
 app.get("/bestilling", (req, res) => {
-    res.sendFile(path.join(__dirname, "/Public/bestillingsside.html"))
+    res.render(path.join(__dirname, "/views/pages/bestillingsside.hbs"))
 })
 
 app.get("/admin", (req, res) => {
@@ -49,12 +49,12 @@ app.get("/admin", (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
+  
     let login = req.body;
-    // Henter ut data fra brukere.db, user
     let userData = db.prepare("SELECT * FROM users WHERE email = ?").get(login.email);
     
     // Her bruker jeg await for å gi bcrypt.compare nok til til å sammen ligne passordet du skrev inn med hashen som ligger i databasen
-    if(await bcrypt.compare(login.password, userData.password)) {
+    if (userData && await bcrypt.compare(login.password, userData.password)) {
         // hvis passordet du skrev in er lik hashen blir du redirected til index.html og hvis de er ikke lik blir du redirected tilbake
         req.session.loggedin = true;
         res.redirect("/");
@@ -96,6 +96,7 @@ app.post(("/addAccessories"), async (req,res) => {
     res.redirect("back")
 })
 
+/*
 app.post(("/reseverUtstyr"), async (req,res) => {
     let svar = req.body;
     reserverUtstyr(svar.user_id, svar.device_id)
@@ -119,6 +120,7 @@ db.transaction(() => {
   db.prepare('UPDATE devices SET antall = antall - 1 WHERE device_id = ?').run();
 });
 }
+*/
 
 app.listen("3000", () => {
     console.log("Server listening at http://localhost:3000")

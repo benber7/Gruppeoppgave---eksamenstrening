@@ -18,6 +18,11 @@
         </div>
     </div>
 
-    
+    {{#each devices}}
+        <td>{{this.device_id}}</td>
+        <td>{{this.device_name}}</td>
+        <td>{{this.device_status}}</td>
+        <td>{{this.description}}</td>
+    {{/each}}
 </body>
 </html>
