@@ -86,7 +86,7 @@ app.post(("/addUser"), async (req, res) => {
 
 app.post(("/addDevices"), async (req,res) => {
     let svar = req.body;
-    db.prepare("INSERT INTO devices (device_name, device_type, device_status, description) VALUES (?, ?, ?, ?)").run(svar.device_name, svar.device_type, svar.device_status, svar.description)
+    db.prepare("INSERT INTO devices (device_name, device_status, description) VALUES (?, ?, ?)").run(svar.device_name, svar.device_status, svar.description)
     res.redirect("back")
 })
 
