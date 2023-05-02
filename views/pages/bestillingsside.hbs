@@ -14,15 +14,27 @@
         <div id="header">Fiksesuppe</div>
         <div id="sidebar">c</div>
         <div id="maincontent">
-            
-        </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Device ID</th>
+            <th>Device Name</th>
+            <th>Device Status</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each devices}}
+            <tr>
+              <td>{{this.device_id}}</td>
+              <td>{{this.device_name}}</td>
+              <td>{{this.device_status}}</td>
+              <td>{{this.description}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
-
-    {{#each devices}}
-        <td>{{this.device_id}}</td>
-        <td>{{this.device_name}}</td>
-        <td>{{this.device_status}}</td>
-        <td>{{this.description}}</td>
-    {{/each}}
+  </div>
 </body>
 </html>

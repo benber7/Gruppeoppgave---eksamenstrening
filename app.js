@@ -19,21 +19,17 @@ app.set("view engine", hbs);
 app.set("views", path.join(__dirname, "./views/pages"))
 
 
-// Dette er hovedsiden, du søker bare på http://localhost:3000/ og får opp en html side
+// Dette er hovedsiden: http://localhost:3000/ og får opp login siden
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"))
 })
 
-//Disse to er veier til registrer og login siden, de er koblet til hver sin knapp i navbaren på de fleste sidene
 app.get("/registrer", (req, res) => {
     res.sendFile(path.join(__dirname, "/Public/registrer.html"))
 })
-app.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, "/Public/login.html"))
-})
 
 app.get("/registerting", (req, res) => {
-    res.sendFile(path.join(__dirname, "/Public/registrerting.html"))
+    res.sendFile(path.join(__dirname, "/Public/registrereting.html"))
 })
 
 app.get("/bestilling", (req, res) => {
@@ -41,28 +37,39 @@ app.get("/bestilling", (req, res) => {
 })
 
 app.get("/admin", (req, res) => {
-  if (req.session.loggedin) {
       res.sendFile(path.join(__dirname, "/Public/admin.html"));
-  } else {
-      res.redirect("/");
   }
-});
+);
+app.get("/elev", (req, res) => {
+      res.sendFile(path.join(__dirname, "/Public/elev.html"));
+  }
+);
+app.get("/larer", (req, res) => {
+      res.sendFile(path.join(__dirname, "/Public/larer.html"));
+  }
+);
 
 app.post("/login", async (req, res) => {
-  
     let login = req.body;
     let userData = db.prepare("SELECT * FROM users WHERE email = ?").get(login.email);
-    
-    // Her bruker jeg await for å gi bcrypt.compare nok til til å sammen ligne passordet du skrev inn med hashen som ligger i databasen
-    if (userData && await bcrypt.compare(login.password, userData.password)) {
-        // hvis passordet du skrev in er lik hashen blir du redirected til index.html og hvis de er ikke lik blir du redirected tilbake
-        req.session.loggedin = true;
+  
+    if (userData && (await bcrypt.compare(login.password, userData.password))) {
+      req.session.loggedin = true;
+      req.session.user = userData;
+  
+      if (userData.role === "Administrator") {
+        res.redirect("/admin");
+      } else if (userData.role === "Elev") {
+        res.redirect("/elev");
+      } else if (userData.role === "Lærer") {
+        res.redirect("/larer");
+      } else {
         res.redirect("/");
-        console.log(req.session.loggedin);
+      }
     } else {
-        res.redirect("back");
+      res.redirect("back");
     }
-});
+  });
 
 // Når du tyrkker på logg ut kjører den her. Den gjør om din cookie session fra true til false og redirecter deg til index.html
 app.get("/logut", (req, res) => {

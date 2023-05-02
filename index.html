@@ -4,29 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <title>Login</title>
 </head>
-
 <body>
-    <div id="gridContainer">
-        <div id="logo"><a href="/"><img src="Fiksesuppe.png"></a></div>
-        <div id="header">Fiksesuppe
-        
-        </div>
-        <div id="sidebar"></div>
-        <div id="maincontent">
-            <div id="sidecontent">
-                <ul>
-                    <li><a href="/bestilling">Lånn ut</a></li><br>
-                    <li><a href="">Lever inn</a></li><br>
-                    <li><a href="/login">Log inn</a></li><br>
-                    <li><a href="/logut">Log ut</a></li><br>
-                    <li><a href="/admin">Admin</a></li><br>
-                </ul>
-            </div>
-        </div>
+    <div class="registrerForm">
+        <form action="/login" method="post">
+            <img src="Fiksesuppe.png">
+            <h1>Logg inn:</h1>
+            <label for="username">Brukernavn: </label><input type="text" name="username" id=""><br>
+            <label for="password">Passord: </label><input type="password" name="password" id=""><br>
+            <label for="email">Epost: </label><input type="text" name="email"><br>
+            <button>Login</button>
+        </form>
     </div>
 </body>
-
 </html>
