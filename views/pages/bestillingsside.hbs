@@ -30,6 +30,12 @@
               <td>{{this.device_name}}</td>
               <td>{{this.device_status}}</td>
               <td>{{this.description}}</td>
+              <td><form action="/reseverUtstyr" method="post">
+                        <input type="hidden" name="device_id" value="{{this.device_id}}">
+                        <input type="date" name="reservation_start_time" placeholder="Reservation start tid">
+                        <input type="date" name="reservation_end_time" placeholder="Reservation start tid">
+                        <input type="submit" value="Reserver">
+                    </td>
             </tr>
           {{/each}}
         </tbody>

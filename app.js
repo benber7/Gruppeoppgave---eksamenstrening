@@ -33,8 +33,11 @@ app.get("/registerting", (req, res) => {
 })
 
 app.get("/bestilling", (req, res) => {
-    res.render(path.join(__dirname, "/views/pages/bestillingsside.hbs"))
-})
+  let devices = db.prepare("SELECT * FROM devices").all();
+  console.log(devices);
+  let objekt = {devices: devices};
+  res.render("bestillingsside.hbs", objekt);
+});
 
 app.get("/admin", (req, res) => {
       res.sendFile(path.join(__dirname, "/Public/admin.html"));
@@ -42,13 +45,17 @@ app.get("/admin", (req, res) => {
 );
 app.get("/elev", (req, res) => {
       res.sendFile(path.join(__dirname, "/Public/elev.html"));
-  }
-);
+  });
+
 app.get("/larer", (req, res) => {
       res.sendFile(path.join(__dirname, "/Public/larer.html"));
-  }
-);
+});
 
+app.get("/logut", (req, res) => {
+        req.session.loggedin = false;
+        res.redirect("/");
+});
+    
 app.post("/login", async (req, res) => {
     let login = req.body;
     let userData = db.prepare("SELECT * FROM users WHERE email = ?").get(login.email);
@@ -71,25 +78,12 @@ app.post("/login", async (req, res) => {
     }
   });
 
-// Når du tyrkker på logg ut kjører den her. Den gjør om din cookie session fra true til false og redirecter deg til index.html
-app.get("/logut", (req, res) => {
-    req.session.loggedin = false;
-    res.redirect("/");
-});
-
-// Etter du har skrevet inn dine opplysninger og trykker på registrer
 app.post(("/addUser"), async (req, res) => {
-    // henter ut hva du har skrevet
     let svar = req.body;
-    // omgjør passordet du skrev inn til hash
     let password = await bcrypt.hash(svar.password, 10)
-    //console.log(svar)
-    //console.log(password)
-    // sender alt til database og der etter sender deg tilbake
     db.prepare("INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)").run(svar.username, password, svar.email, svar.role)
     res.redirect("back")    
 })
-
 
 app.post(("/addDevices"), async (req,res) => {
     let svar = req.body;
@@ -103,31 +97,6 @@ app.post(("/addAccessories"), async (req,res) => {
     res.redirect("back")
 })
 
-/*
-app.post(("/reseverUtstyr"), async (req,res) => {
-    let svar = req.body;
-    reserverUtstyr(svar.user_id, svar.device_id)
-    res.redirect("back")
-})
-
-function reserverUtstyr(user_id, accessory_id) {
-  const bruker = db.prepare('SELECT * FROM users WHERE user_id = ?').get(user_id);
-  const utstyr = db.prepare('SELECT * FROM devices WHERE device_id = ?').get(device_id);
-
-  if (!bruker || !utstyr) {
-    return false;
-  }
-
-  // Sjekk om utstyret er tilgjengelig
-  if (utstyr.antall < 1) {
-    return false;
-  }
-
-db.transaction(() => {
-  db.prepare('UPDATE devices SET antall = antall - 1 WHERE device_id = ?').run();
-});
-}
-*/
 
 app.listen("3000", () => {
     console.log("Server listening at http://localhost:3000")
